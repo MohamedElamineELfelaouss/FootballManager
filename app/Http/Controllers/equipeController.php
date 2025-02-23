@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipes;
 use App\Models\Matchs;
+use App\Models\Joueurs;
 use App\Models\Transferts;
 use Illuminate\Http\Request;
 
@@ -63,11 +64,16 @@ class equipeController extends Controller
             'entraineur' => 'required|string',
         ]);
         $equipe->update($data);
-        return redirect()->route('equipes.index');
+        return redirect()->route('equipes.show', $equipe);
     }
     public function show(Equipes $equipe)
     {
-        return view('equipes.show', compact('equipe'));
+
+
+        $listJoueurs = Joueurs::where('idEquipe', $equipe->id)->get();
+
+        return view('equipes.show', compact('equipe', 'listJoueurs'));
+
     }
 
     public function totalPlayers($id)

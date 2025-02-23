@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\joueurs;
+use App\Models\Joueurs;
 use App\Models\Transferts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +15,17 @@ class StatisticsController extends Controller
             ->groupBy('idJoueur')
             ->orderBy('total', 'desc')
             ->first();
-        $joueur = $result ? Joueurs::findOrFail($result->idJoueur) : null;
-        $transfers = Transferts::where('idJoueur', $joueur->id)->get();
+
+        $joueur = null;
+        $transfers = collect();
+
+        if ($result) {
+            $joueur = Joueurs::findOrFail($result->idJoueur);
+            if ($joueur) {
+                $transfers = Transferts::where('idJoueur', $joueur->id)->get();
+            }
+        }
+
         return view('statistics.mostTransfers', compact('joueur', 'result', 'transfers'));
-
-
     }
 }

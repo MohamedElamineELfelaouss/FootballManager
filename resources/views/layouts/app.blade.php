@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -10,23 +10,35 @@
 </head>
 
 <body class="bg-gray-100">
-    <nav class="bg-blue-600 p-4">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 p-4 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="{{ url('/') }}" class="text-white text-xl font-bold">FootballManager</a>
-            <div class="space-x-4">
-                <a href="{{ route('joueurs.index') }}" class="text-white hover:text-gray-200">Joueurs</a>
-                <a href="{{ route('equipes.index') }}" class="text-white hover:text-gray-200">Équipes</a>
-                <a href="{{ route('competitions.index') }}" class="text-white hover:text-gray-200">Compétitions</a>
-                <a href="{{ route('matchs.index') }}" class="text-white hover:text-gray-200">Matchs</a>
-                <a href="{{ route('transferts.index') }}" class="text-white hover:text-gray-200">Transferts</a>
+            <a href="{{ url('/') }}" class="text-white text-2xl font-bold tracking-wide">FootballManager</a>
+            <div class="space-x-6">
+                <a href="{{ route('joueurs.index') }}"
+                    class="text-white hover:text-gray-300 transition duration-200">Joueurs</a>
+                <a href="{{ route('equipes.index') }}"
+                    class="text-white hover:text-gray-300 transition duration-200">Équipes</a>
+                <a href="{{ route('competitions.index') }}"
+                    class="text-white hover:text-gray-300 transition duration-200">Compétitions</a>
+                <a href="{{ route('matchs.index') }}"
+                    class="text-white hover:text-gray-300 transition duration-200">Matchs</a>
+                <a href="{{ route('transferts.index') }}"
+                    class="text-white hover:text-gray-300 transition duration-200">Transferts</a>
                 <a href="{{ route('statistics.playerMostTransfers') }}"
-                    class="text-white hover:text-gray-200">Statistiques</a>
+                    class="text-white hover:text-gray-300 transition duration-200">
+                    Statistiques
+                </a>
             </div>
         </div>
     </nav>
-    <div class="container mx-auto mt-8">
+
+    <!-- Page Content -->
+    <div class="container mx-auto mt-10 max-w-6xl bg-white p-8 rounded-lg shadow-md">
         @yield('content')
     </div>
+
 </body>
 
 </html>
