@@ -68,18 +68,11 @@ class equipeController extends Controller
     }
     public function show(Equipes $equipe)
     {
-
-
+        $totalPlayers = Joueurs::where('idEquipe', $equipe->id)->count();
         $listJoueurs = Joueurs::where('idEquipe', $equipe->id)->get();
-        return view('equipes.show', compact('equipe', 'listJoueurs'));
+        return view('equipes.show', compact('equipe', 'listJoueurs', 'totalPlayers'));
     }
 
-    public function totalPlayers($id)
-    {
-        $equipe = Equipes::findOrFail($id);
-        $totalPlayers = $equipe->joueurs->count();
-        return view('equipes.show', compact('equipe', 'totalPlayers'));
-    }
     public function totalTransferAmount($id)
     {
         $equipe = Equipes::findOrFail($id);
