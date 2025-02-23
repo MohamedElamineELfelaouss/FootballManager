@@ -71,9 +71,7 @@ class equipeController extends Controller
 
 
         $listJoueurs = Joueurs::where('idEquipe', $equipe->id)->get();
-
         return view('equipes.show', compact('equipe', 'listJoueurs'));
-
     }
 
     public function totalPlayers($id)
@@ -81,6 +79,15 @@ class equipeController extends Controller
         $equipe = Equipes::findOrFail($id);
         $totalPlayers = $equipe->joueurs->count();
         return view('equipes.show', compact('equipe', 'totalPlayers'));
+    }
+    public function totalTransferAmount($id)
+    {
+        $equipe = Equipes::findOrFail($id);
+        $listTransferts = Transferts::where('idEquipeArrivee', $id)->get();
+        $totalAmount = Transferts::where('idEquipeArrivee', $id)->sum('montant');
+
+        return view('equipes.totalTransferts', compact('equipe', 'totalAmount', 'listTransferts'));
+
     }
 
     public function averageScore(Request $request, $id)
@@ -92,14 +99,6 @@ class equipeController extends Controller
         $awayScore = $equipe->matchsExterieur()->where('idCompetition', $competitionId)->avg('scoreEquipeExterieur');
         $averageScore = ($homeScore + $awayScore) / 2;
         return view('equipes.show', compact('equipe', 'averageScore'));
-    }
-    public function totalTransferAmount($id)
-    {
-        $equipe = Equipes::findOrFail($id);
-        $totalAmount = Transferts::where('idEquipeArrivee', $id)->sum('montant');
-
-        return view('equipes.show', compact('equipe', 'totalAmount'));
-
     }
 
     public function totalMatches($id)

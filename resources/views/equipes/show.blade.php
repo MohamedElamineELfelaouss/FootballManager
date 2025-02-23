@@ -29,6 +29,10 @@
                 class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition duration-200 shadow-md">
                 ✏️ Éditer l'équipe
             </a>
+            <a href="{{ route('equipes.totalTransferts', $equipe->id) }}"
+                class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition duration-200 shadow-md">
+                📝 Transferts
+            </a>
             <form action="{{ route('equipes.destroy', $equipe->id) }}" method="POST"
                 onsubmit="return confirm('Voulez-vous vraiment supprimer cette équipe?');">
                 @csrf

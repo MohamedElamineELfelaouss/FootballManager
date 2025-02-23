@@ -14,23 +14,73 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // Create 10 teams
-        $equipes = Equipes::factory(10)->create();
+        $realMadrid = Equipes::create([
+            'nom' => 'Real Madrid',
+            'pays' => 'Espagne',
+            'entraineur' => 'Carlo Ancelotti',
+        ]);
 
-        // For each team, create 15 players
-        $equipes->each(function ($equipe) {
-            Joueurs::factory(15)->create([
-                'idEquipe' => $equipe->id
-            ]);
-        });
+        $barca = Equipes::create([
+            'nom' => 'FC Barcelona',
+            'pays' => 'Espagne',
+            'entraineur' => 'Xavi Hernandez',
+        ]);
 
-        // Create 5 competitions
-        Competitions::factory(5)->create();
+        $bayern = Equipes::create([
+            'nom' => 'Bayern Munich',
+            'pays' => 'Allemagne',
+            'entraineur' => 'Julian Nagelsmann',
+        ]);
 
-        // Create 30 matches; factories will automatically assign competitions and teams
-        Matchs::factory(30)->create();
+        Joueurs::create([
+            'nom' => 'Courtois',
+            'prenom' => 'tubeau',
+            'poste' => 'Gardien',
+            'nationalite' => 'Belge',
+            'idEquipe' => $realMadrid->id,
+            'buts_marques' => 0,
+        ]);
+        Joueurs::create([
+            'nom' => 'Ramos',
+            'prenom' => 'Sergio',
+            'poste' => 'Défenseur',
+            'nationalite' => 'Espagnol',
+            'idEquipe' => $realMadrid->id,
+            'buts_marques' => 20,
+        ]);
+        Joueurs::create([
+            'nom' => 'Messi',
+            'prenom' => 'Lionel',
+            'poste' => 'Attaquant',
+            'nationalite' => 'Argentin',
+            'idEquipe' => $barca->id,
+            'buts_marques' => 30,
+        ]);
+        Joueurs::create([
+            'nom' => 'Piqué',
+            'prenom' => 'Gerard',
+            'poste' => 'Défenseur',
+            'nationalite' => 'Espagnol',
+            'idEquipe' => $barca->id,
+            'buts_marques' => 10,
+        ]);
 
-        // Create 20 transfers
-        Transferts::factory(20)->create();
+        Joueurs::create([
+            'nom' => 'Neuer',
+            'prenom' => 'Manuel',
+            'poste' => 'Gardien',
+            'nationalite' => 'Allemand',
+            'idEquipe' => $bayern->id,
+            'buts_marques' => 0,
+        ]);
+        Joueurs::create([
+            'nom' => 'Lewandowski',
+            'prenom' => 'Robert',
+            'poste' => 'Attaquant',
+            'nationalite' => 'Polonais',
+            'idEquipe' => $bayern->id,
+            'buts_marques' => 35,
+        ]);
+
     }
 }

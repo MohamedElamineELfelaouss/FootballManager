@@ -40,7 +40,12 @@ class transfertsController extends Controller
             'montant' => 'required|numeric',
             'dateTransfert' => 'required|date',
         ]);
-        Transferts::create($data);
+        \DB::transaction(function () use ($data) {
+            Transferts::create($data);
+
+            $joueur = Joueurs::findOrFail($data['idJoueur']);
+            $joueur->update(['idEquipe' => $data['idEquipeArrivee']]);
+        });
         return redirect()->route('transferts.index');
     }
 

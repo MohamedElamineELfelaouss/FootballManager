@@ -21,7 +21,7 @@ Route::resource('joueurs', joueursController::class);
 // equipe
 Route::get('equipes/{id}/total-players', [equipeController::class, 'totalPlayers'])->name('equipes.totalPlayersequipes');
 Route::get('equipes/{id}/average-score', [equipeController::class, 'averageScore'])->name('equipes.averageScore');
-Route::get('equipes/{id}/total-transfers', [equipeController::class, 'totalTransferAmount'])->name('equipes.totalTransferAmount');
+Route::get('equipes/{id}/total-transfers', [equipeController::class, 'totalTransferAmount'])->name('equipes.totalTransferts');
 Route::get('equipes/{id}/total-matches', [equipeController::class, 'totalMatches'])->name('equipes.totalMatches');
 Route::resource('equipes', equipeController::class);
 // competitions
