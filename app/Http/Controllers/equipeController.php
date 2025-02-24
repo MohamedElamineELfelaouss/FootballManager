@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competitions;
 use App\Models\Equipes;
 use App\Models\Matchs;
 use App\Models\Joueurs;
@@ -70,7 +71,10 @@ class equipeController extends Controller
     {
         $totalPlayers = Joueurs::where('idEquipe', $equipe->id)->count();
         $listJoueurs = Joueurs::where('idEquipe', $equipe->id)->get();
-        return view('equipes.show', compact('equipe', 'listJoueurs', 'totalPlayers'));
+        $totalMatches = Matchs::where('idEquipeDomicile', $equipe->id)
+            ->orWhere('idEquipeExterieur', $equipe->id)
+            ->count();
+        return view('equipes.show', compact('equipe', 'listJoueurs', 'totalPlayers', 'totalMatches'));
     }
 
     public function totalTransferAmount($id)
@@ -85,22 +89,18 @@ class equipeController extends Controller
 
     public function averageScore(Request $request, $id)
     {
-        $competitionId = $request->input('competitionId');
+        $competitionId = $request->query('competitionId');
+        $competitions = Competitions::all();
         $equipe = Equipes::findOrFail($id);
 
-        $homeScore = $equipe->matchsDomicile()->where('idCompetition', $competitionId)->avg('scoreEquipeDomicile');
-        $awayScore = $equipe->matchsExterieur()->where('idCompetition', $competitionId)->avg('scoreEquipeExterieur');
-        $averageScore = ($homeScore + $awayScore) / 2;
-        return view('equipes.show', compact('equipe', 'averageScore'));
-    }
-
-    public function totalMatches($id)
-    {
-        $equipe = Equipes::findOrFail($id);
-        $totalMatches = Matchs::where('idEquipeDomicile', $id)
-            ->orWhere('idEquipeExterieur', $id)
-            ->count();
-        return view('equipes.show', compact('equipe', 'totalMatches'));
+        if ($competitionId) {
+            $homeScore = $equipe->matchsDomicile()->where('idCompetition', $competitionId)->avg('scoreDomicile');
+            $awayScore = $equipe->matchsExterieur()->where('idCompetition', $competitionId)->avg('scoreExterieur');
+            $averageScore = (($homeScore ?? 0) + ($awayScore ?? 0)) / 2;
+        } else {
+            $averageScore = null;
+        }
+        return view('equipes.averageScore', compact('equipe', 'averageScore', 'competitions'));
     }
 
 

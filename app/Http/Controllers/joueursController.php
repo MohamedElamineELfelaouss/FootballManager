@@ -14,7 +14,8 @@ class joueursController extends Controller
     public function index()
     {
         $joueurs = Joueurs::all();
-        return view('joueurs.index', compact('joueurs'));
+        $equipes = Equipes::all();
+        return view('joueurs.index', compact('joueurs', 'equipes'));
     }
 
 
@@ -103,12 +104,15 @@ class joueursController extends Controller
             $query->where('nationalite', 'like', "%{$request->nationalite}%");
         }
         $joueurs = $query->get();
-        return view('joueurs.index', compact('joueurs'));
+        $equipes = Equipes::all();
+        return view('joueurs.index', compact('joueurs', 'equipes'));
     }
-    public function filterByTeam($idEquipe)
+    public function filterByTeam(Request $request)
     {
-        $joueur = Joueurs::where('idEquipe', $idEquipe)->get();
-        return view('joueurs.index', compact('joueur'));
+        $teamId = $request->input('team_selected');
+        $joueurs = $teamId ? Joueurs::where('idEquipe', $teamId)->get() : Joueurs::all();
+        $equipes = Equipes::all();
+        return view('joueurs.index', compact('joueurs', 'equipes'));
     }
 
     public function filterByGoal(Request $request)
@@ -117,7 +121,8 @@ class joueursController extends Controller
         $minGoals = is_numeric($minGoalInput) ? (int) $minGoalInput : 0;
 
         $joueurs = Joueurs::where('buts_marques', '>=', $minGoals)->orderBy('buts_marques', 'desc')->get();
-        return view('joueurs.index', compact('joueurs'));
+        $equipes = Equipes::all();
+        return view('joueurs.index', compact('joueurs', 'equipes'));
     }
 
 }

@@ -9,6 +9,20 @@
             </a>
         </div>
 
+        <!-- filter by team -->
+        <div class="mb-4">
+            <form action="{{ route('joueurs.filterByTeam') }}" method="GET" class="flex space-x-2">
+                <select name="team_selected" id="team_selected" class="border rounded p-2 flex-1">
+                    <option value="">-- Sélectionner une équipe --</option>
+                    @foreach($equipes as $equipe)
+                        <option value="{{ $equipe->id }}">{{ $equipe->nom }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+                    Filtrer par équipe
+                </button>
+            </form>
+        </div>
         <!-- Recherche -->
         <div class="mb-4">
             <form action="{{ route('joueurs.search') }}" method="GET" class="flex space-x-2">

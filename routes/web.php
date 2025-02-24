@@ -16,19 +16,20 @@ Route::get('/', function () {
 // joueur
 Route::get('search-joueurs', [joueursController::class, 'search'])->name('joueurs.search');
 Route::get('filter-joueur-goal', [joueursController::class, 'filterByGoal'])->name('joueurs.filterByGoals');
-Route::get('filter-joueur-team/{idEquipe}', [joueursController::class, 'filterByTeam'])->name('joueurs.filterByTeam');
+Route::get('filter-joueur-team', [joueursController::class, 'filterByTeam'])->name('joueurs.filterByTeam');
 Route::resource('joueurs', joueursController::class);
 // equipe
 Route::get('equipes/{id}/total-transfers', [equipeController::class, 'totalTransferAmount'])->name('equipes.totalTransferts');
+Route::get('equipes/{id}/average-score', [equipeController::class, 'averageScore'])->name('equipes.averageScore');
 Route::get('equipes/{id}/total-matches', [equipeController::class, 'totalMatches'])->name('equipes.totalMatches');
 Route::resource('equipes', equipeController::class);
 // competitions
 Route::resource('competitions', competitionsController::class);
 //Matchs
-Route::resource('matchs', matchsController::class);
 Route::get('matchs/filter-after-date', [matchsController::class, 'filterAfterDate'])->name('matchs.filterAfterDate');
-Route::get('matchs/by-competition/{competitionId}', [matchsController::class, 'filterByCompetition'])->name('matchs.filterByCompetition');
-Route::get('matchs/team/{teamId}', [matchsController::class, 'filterByEquipe'])->name('matchs.filterByEquipe');
+Route::get('matchs/by-competition', [matchsController::class, 'filterByCompetition'])->name('matchs.filterByCompetition');
+Route::get('matchs/team', [matchsController::class, 'filterByEquipe'])->name('matchs.filterByEquipe');
+Route::resource('matchs', matchsController::class);
 //transferts
 Route::resource('transferts', transfertsController::class);
 Route::get('transferts/filter-by-period', [transfertsController::class, 'filterByPeriod'])->name('transferts.filterByPeriod');

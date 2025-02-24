@@ -15,7 +15,9 @@ class matchsController extends Controller
     public function index()
     {
         $matchs = Matchs::all();
-        return view('matchs.index', compact('matchs'));
+        $equipes = Equipes::all();
+        $competitions = Competitions::all();
+        return view('matchs.index', compact('matchs', 'equipes', 'competitions'));
     }
 
     /**
@@ -82,26 +84,41 @@ class matchsController extends Controller
         return redirect()->route('matchs.index');
     }
 
-    public function filterByCompetition($idCompetition)
+    public function filterByCompetition(Request $request)
     {
-        $matchs = Matchs::where('idCompetition', $idCompetition)->get();
-        return view('matchs.index', compact('matchs'));
+        $competitionId = $request->query('competitionId');
+
+        $matchs = $competitionId ? Matchs::where('idCompetition', $competitionId)->get() : Matchs::all();
+        $equipes = Equipes::all();
+        $competitions = Competitions::all();
+        return view('matchs.index', compact('matchs', 'equipes', 'competitions'));
+
     }
 
     public function filterAfterDate(Request $request)
     {
         $date = $request->input('after_date');
         $matchs = Matchs::where('dateMatch', '>', $date)->get();
-        return view('matchs.index', compact('matchs'));
+        $equipes = Equipes::all();
+        $competitions = Competitions::all();
+        return view('matchs.index', compact('matchs', 'equipes', 'competitions'));
     }
 
-    public function filterByEquipe($idEquipe)
+    public function filterByEquipe(Request $request)
     {
-        $matchs = Matchs::where('idEquipeDomicile', $idEquipe)
-            ->orWhere('idEquipeExterieur', $idEquipe)
-            ->get();
-        return view('matchs.index', compact('matchs'));
+        $equipeId = $request->input('EquipeId');
+
+        $matchs = $equipeId
+            ? Matchs::where('idEquipeDomicile', $equipeId)
+                ->orWhere('idEquipeExterieur', $equipeId)
+                ->get()
+            : Matchs::all();
+
+        $equipes = Equipes::all();
+        $competitions = Competitions::all();
+        return view('matchs.index', compact('matchs', 'equipes', 'competitions'));
     }
+
 
     /**
      * Remove the specified resource from storage.

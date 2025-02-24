@@ -8,6 +8,33 @@
                 Ajouter un match
             </a>
         </div>
+        <div class="mb-4">
+            <form action="{{ route('matchs.filterByEquipe') }}" method="GET" class="flex space-x-2">
+                <select name="EquipeId" id="EquipeId" class="border rounded p-2 flex-1">
+                    <option value="">-- Sélectionner une équipe --</option>
+                    @foreach($equipes as $equipe)
+                        <option value="{{ $equipe->id }}">{{ $equipe->nom }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+                    Filtrer par équipe
+                </button>
+            </form>
+        </div>
+        <div class="mb-4">
+            <form action="{{ route('matchs.filterByCompetition') }}" method="GET" class="flex space-x-2">
+                <select name="competitionId" id="competitionId" class="border rounded p-2 flex-1">
+                    <option value="">-- Sélectionner une Competition --</option>
+                    @foreach($competitions as $competition)
+                        <option value="{{ $competition->id }}">{{ $competition->nom }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+                    Filtrer par Competition
+                </button>
+            </form>
+        </div>
+
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -41,5 +68,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        </>
 @endsection
