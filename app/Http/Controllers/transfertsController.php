@@ -88,9 +88,9 @@ class transfertsController extends Controller
     {
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
+        $transfers = Transferts::whereBetween('dateTransfert', [$startDate, $endDate])->get();
 
-        $transferts = Transferts::whereBetween('dateTransfert', [$startDate, $endDate])->get();
-        return view('transferts.index', compact('transferts'));
+        return view('transferts.index', compact('transfers'));
     }
 
 

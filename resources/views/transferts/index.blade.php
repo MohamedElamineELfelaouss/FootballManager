@@ -8,6 +8,25 @@
                 Ajouter un transfert
             </a>
         </div>
+        <div class="mb-4">
+            <form action="{{ route('transferts.filterByPeriod') }}" method="GET"
+                class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+                <label for="startDate" class="text-gray-700 font-medium self-center">Start Date:</label>
+                <input type="date" name="start_date" id="startDate" class="border rounded p-2 flex-1 w-full md:w-auto"
+                    required>
+                <label for="endDate" class="text-gray-700 font-medium self-center">End Date:</label>
+                <input type="date" name="end_date" id="endDate" class="border rounded p-2 flex-1 w-full md:w-auto" required>
+                <div class="flex space-x-2">
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                        Filtrer par date
+                    </button>
+                    <a href="{{ route('transferts.index') }}"
+                        class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">
+                        Reset
+                    </a>
+                </div>
+            </form>
+        </div>
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -23,7 +42,7 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($transfers as $transfert)
                         <tr>
-                            <td class="px-6 py-4">{{ $transfert->joueur->nom ?? 'N/A' }}</td>
+                            <td class="px-6 py-4">{{ $transfert->joueurs->nom ?? 'N/A' }}</td>
                             <td class="px-6 py-4">{{ $transfert->equipesDepart->nom ?? 'N/A' }}</td>
                             <td class="px-6 py-4">{{ $transfert->equipesArrivee->nom ?? 'N/A' }}</td>
                             <td class="px-6 py-4">{{ $transfert->montant }}</td>

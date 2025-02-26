@@ -98,7 +98,7 @@ class matchsController extends Controller
     public function filterAfterDate(Request $request)
     {
         $date = $request->input('after_date');
-        $matchs = Matchs::where('dateMatch', '>', $date)->get();
+        $matchs = $date ? Matchs::where('dateMatch', '>', $date)->get() : Matchs::all();
         $equipes = Equipes::all();
         $competitions = Competitions::all();
         return view('matchs.index', compact('matchs', 'equipes', 'competitions'));

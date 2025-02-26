@@ -31,8 +31,8 @@ Route::get('matchs/by-competition', [matchsController::class, 'filterByCompetiti
 Route::get('matchs/team', [matchsController::class, 'filterByEquipe'])->name('matchs.filterByEquipe');
 Route::resource('matchs', matchsController::class);
 //transferts
-Route::resource('transferts', transfertsController::class);
 Route::get('transferts/filter-by-period', [transfertsController::class, 'filterByPeriod'])->name('transferts.filterByPeriod');
+Route::resource('transferts', transfertsController::class);
 // Statistiques
 Route::get('statistics/player-most-transfers', [StatisticsController::class, 'playerWithMostTransfers'])->name('statistics.playerMostTransfers');
 
