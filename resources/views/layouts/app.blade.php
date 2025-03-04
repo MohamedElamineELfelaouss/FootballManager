@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FootballManager</title>
-    <!-- Tailwind CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100">
 
-    <!-- Navbar -->
     <nav class="bg-blue-600 p-4 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
             <a href="{{ url('/') }}" class="text-white text-2xl font-bold tracking-wide">FootballManager</a>
@@ -34,7 +32,6 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
     <div class="container mx-auto mt-10 max-w-6xl bg-white p-8 rounded-lg shadow-md">
         @yield('content')
     </div>

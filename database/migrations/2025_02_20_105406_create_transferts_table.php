@@ -15,16 +15,14 @@ return new class extends Migration {
             $table->unsignedBigInteger('idJoueur');
             $table->unsignedBigInteger('idEquipeDepart');
             $table->unsignedBigInteger('idEquipeArrivee');
-
-            // Use decimal instead of integer for monetary values
             $table->decimal('montant', 10, 2);
-            $table->date('dateTransfert');  // Corrected column name
+            $table->date('dateTransfert');
 
-            $table->timestamps();
 
             $table->foreign('idJoueur')->references('id')->on('joueurs')->onDelete('cascade');
             $table->foreign('idEquipeDepart')->references('id')->on('equipes')->onDelete('cascade');
             $table->foreign('idEquipeArrivee')->references('id')->on('equipes')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
