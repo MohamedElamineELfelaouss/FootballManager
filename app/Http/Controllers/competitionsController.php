@@ -68,7 +68,7 @@ class competitionsController extends Controller
             'annee' => 'required|digits:4',
         ]);
         $competition->update($data);
-        return redirect()->route('competitions.index');
+        return redirect()->route('competitions.index')->with('success', 'Competition updated successfully');
     }
 
     /**

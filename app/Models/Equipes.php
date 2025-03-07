@@ -9,7 +9,7 @@ class Equipes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'pays', 'entraineur'];
+    protected $fillable = ['nom', 'pays', 'entraineur', 'photo_equipe'];
     public function joueurs()
     {
         return $this->hasMany(Joueurs::class);

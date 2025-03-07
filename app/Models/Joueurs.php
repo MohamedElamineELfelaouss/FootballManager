@@ -9,7 +9,7 @@ class Joueurs extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'prenom', 'poste', 'nationalite', 'idEquipe', 'buts_marques'];
+    protected $fillable = ['nom', 'prenom', 'poste', 'nationalite', 'idEquipe', 'buts_marques', 'photo_joueur'];
     public function equipes()
     {
         return $this->belongsTo(Equipes::class, 'idEquipe');
@@ -21,6 +21,6 @@ class Joueurs extends Model
         return $this->hasMany(Transferts::class, 'idJoueur');
     }
 
-    
+
 
 }

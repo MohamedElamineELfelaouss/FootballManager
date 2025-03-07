@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="bg-white shadow-md rounded-lg p-7 max-w-2xl mx-auto">
+        @if($equipe->photo_equipe)
+            <div class="flex justify-center mb-6">
+                <img src="{{ asset('storage/' . $equipe->photo_equipe) }}" alt="Logo de {{ $equipe->nom }}"
+                    class="w-64 h-auto object-contain">
+            </div>
+        @endif
+
         <h1 class="text-3xl font-bold mb-4 text-center text-gray-800">Détails de l'Équipe: <span
                 class="text-blue-600">{{ $equipe->nom }}</span></h1>
 
@@ -24,25 +31,25 @@
             @endisset
         </div>
 
-        <div class="mt-6 flex items-center flex-wrap justify-center gap-4 ">
+        <div class="mt-6 flex items-center flex-wrap justify-center gap-4">
             <a href="{{ route('equipes.edit', $equipe->id) }}"
-                class=" whitespace-nowrap bg-yellow-500 text-white px-9 py-2 rounded-lg hover:bg-yellow-600 transition duration-200 shadow-md">
+                class="whitespace-nowrap bg-yellow-500 text-white px-9 py-2 rounded-lg hover:bg-yellow-600 transition duration-200 shadow-md">
                 ✏️ Éditer l'équipe
             </a>
             <a href="{{ route('equipes.totalTransferts', $equipe->id) }}"
-                class=" whitespace-nowrap bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition duration-200 shadow-md">
+                class="whitespace-nowrap bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition duration-200 shadow-md">
                 📝 Transferts
             </a>
             <a href="{{ route('equipes.averageScore', $equipe->id) }}"
-                class=" whitespace-nowrap bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition duration-200 shadow-md">
-                🥅 average Score
+                class="whitespace-nowrap bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition duration-200 shadow-md">
+                🥅 Average Score
             </a>
             <form action="{{ route('equipes.destroy', $equipe->id) }}" method="POST"
                 onsubmit="return confirm('Voulez-vous vraiment supprimer cette équipe?');">
                 @csrf
                 @method('DELETE')
                 <button type="submit"
-                    class=" whitespace-nowrap bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition duration-200 shadow-md">
+                    class="whitespace-nowrap bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition duration-200 shadow-md">
                     🗑️ Supprimer l'équipe
                 </button>
             </form>

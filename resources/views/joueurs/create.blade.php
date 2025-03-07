@@ -3,7 +3,7 @@
 @section('content')
     <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto">
         <h1 class="text-2xl font-bold mb-4">Ajouter un Joueur</h1>
-        <form action="{{ route('joueurs.store') }}" method="POST" class="space-y-4">
+        <form action="{{ route('joueurs.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
             <div>
                 <label for="nom" class="block font-medium">Nom :</label>
@@ -34,6 +34,11 @@
                 <label for="buts_marques" class="block font-medium">Buts Marqués :</label>
                 <input type="number" name="buts_marques" id="buts_marques" value="0" class="border rounded w-full p-2">
             </div>
+            <div>
+                <label for="photo_joueur" class="block font-medium">Photo Joueur</label>
+                <input type="file" name="photo_joueur" id="photo_joueur" class="border rounded w-full p-2">
+            </div>
+
             <div>
                 <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
                     Ajouter

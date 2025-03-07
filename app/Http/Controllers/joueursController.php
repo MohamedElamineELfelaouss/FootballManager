@@ -40,7 +40,12 @@ class joueursController extends Controller
             'nationalite' => 'required|string',
             'idEquipe' => 'required|exists:equipes,id',
             'buts_marques' => 'required|integer',
+            'photo_joueur' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+
+        if ($request->hasFile('photo_joueur')) {
+            $data['photo_joueur'] = $request->file('photo_joueur')->store('joueurs_photos', 'public');
+        }
 
         Joueurs::create($data);
         return redirect()->route('joueurs.index');
@@ -76,8 +81,14 @@ class joueursController extends Controller
             'nationalite' => 'required|string',
             'idEquipe' => 'required|exists:equipes,id',
             'buts_marques' => 'required|integer',
+            'photo_joueur' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
-
+        if ($request->hasFile('photo_joueur')) {
+            if ($joueur->photo_joueur) {
+                \Storage::disk('public')->delete($joueur->photo_joueur);
+            }
+            $data['photo_joueur'] = $request->file('photo_joueur')->store('joueurs_photos', 'public');
+        }
         $joueur->update($data);
         return redirect()->route('joueurs.index');
     }

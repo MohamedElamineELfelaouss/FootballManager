@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
+
 @section('content')
     <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto">
         <h1 class="text-2xl font-bold mb-4">Éditer le Joueur: {{ $joueur->nom }} {{ $joueur->prenom }}</h1>
-        <form action="{{ route('joueurs.update', $joueur->id) }}" method="POST" class="space-y-4">
+        <form action="{{ route('joueurs.update', $joueur->id) }}" method="POST" enctype="multipart/form-data"
+            class="space-y-4">
             @csrf
             @method('PUT')
             <div>
@@ -41,6 +43,10 @@
                 <label for="buts_marques" class="block font-medium">Buts Marqués :</label>
                 <input type="number" name="buts_marques" id="buts_marques" value="{{ $joueur->buts_marques }}"
                     class="border rounded w-full p-2">
+            </div>
+            <div>
+                <label for="photo_joueur" class="block font-medium">Photo :</label>
+                <input type="file" name="photo_joueur" id="photo_joueur" class="border rounded w-full p-2">
             </div>
             <div>
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">

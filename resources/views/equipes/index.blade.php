@@ -12,6 +12,7 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Logo</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nom</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Pays</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Entraineur</th>
@@ -21,6 +22,14 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($equipes as $equipe)
                         <tr>
+                            <td class="px-6 py-4 text-center">
+                                @if($equipe->photo_equipe)
+                                    <img src="{{ asset('storage/' . $equipe->photo_equipe) }}" alt="{{ $equipe->nom }} Logo"
+                                        class="mx-auto h-12 w-auto object-contain rounded">
+                                @else
+                                    <span class="text-gray-500">N/A</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4">{{ $equipe->nom }}</td>
                             <td class="px-6 py-4">{{ $equipe->pays }}</td>
                             <td class="px-6 py-4">{{ $equipe->entraineur }}</td>

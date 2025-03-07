@@ -37,7 +37,11 @@ class equipeController extends Controller
             'nom' => 'required|string',
             'pays' => 'required|string',
             'entraineur' => 'required|string',
+            'photo_equipe' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+        if ($request->hasFile('photo_equipe')) {
+            $data['photo_equipe'] = $request->file('photo_equipe')->store('equipes_photos', 'public');
+        }
         Equipes::create($data);
         return redirect()->route('equipes.index');
     }
@@ -63,7 +67,15 @@ class equipeController extends Controller
             'nom' => 'required|string',
             'pays' => 'required|string',
             'entraineur' => 'required|string',
+            'photo_equipe' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+        if ($request->hasFile('photo_equipe')) {
+            if ($equipe->photo_joueur) {
+                \Storage::disk('public')->delete($equipe->photo_joueur);
+            }
+            $data['photo_equipe'] = $request->file('photo_equipe')->store('equipes_photos', 'public');
+        }
+
         $equipe->update($data);
         return redirect()->route('equipes.show', $equipe);
     }
