@@ -9,7 +9,6 @@
             </a>
         </div>
 
-        <!-- filter by team -->
         <div class="mb-4">
             <form action="{{ route('joueurs.filterByTeam') }}" method="GET" class="flex space-x-2">
                 <select name="team_selected" id="team_selected" class="border rounded p-2 flex-1">
